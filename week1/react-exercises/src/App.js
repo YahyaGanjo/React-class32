@@ -4,6 +4,7 @@ import Guarantee from "./components/guarantee";
 import freeShipping from "./f-delivery.png";
 import chat from "./chat.png";
 import coin from "./coin.png";
+import Counter from "./components/counter";
 
 function App() {
   const Lorem =
@@ -24,6 +25,7 @@ function App() {
           description={Lorem}
         />
       </div>
+      <Counter />
     </div>
   );
 }

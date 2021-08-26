@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Hobby = ({ hobby }) => {
+const Hobby = ({ hobby }) => {
   return <li>{hobby}</li>;
 };
 

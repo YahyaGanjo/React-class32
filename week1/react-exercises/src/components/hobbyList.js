@@ -1,7 +1,7 @@
 import React from "react";
 import Hobby from "./hobby";
 
-export const HobbyList = () => {
+const HobbyList = () => {
   const hobbies = [
     "Surfing",
     "Rock climbing",
