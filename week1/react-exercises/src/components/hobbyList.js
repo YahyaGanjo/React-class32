@@ -1,5 +1,6 @@
 import React from "react";
-import Hobby from "./hobby";
+import Hobby from "./Hobby";
+import { v4 as uuidv4 } from "uuid";
 
 const HobbyList = () => {
   const hobbies = [
@@ -13,7 +14,7 @@ const HobbyList = () => {
     <div>
       <ul>
         {hobbies.map((hobby) => {
-          return <Hobby hobby={hobby} />;
+          return <Hobby hobby={hobby} key={uuidv4()} />;
         })}
       </ul>
     </div>

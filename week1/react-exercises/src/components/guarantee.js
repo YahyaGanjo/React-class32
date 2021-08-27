@@ -4,8 +4,8 @@ const Guarantee = ({ image, title, description }) => {
   return (
     <div>
       <img src={image} alt="this is an img" />
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <h2>{title}</h2>
+      <p className="description">{description}</p>
     </div>
   );
 };

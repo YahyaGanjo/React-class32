@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Count from "./Count";
+import Button from "./Button";
 
 const Counter = () => {
   const [count, setCount] = useState(0);
@@ -11,14 +13,6 @@ const Counter = () => {
       <p>{feedback}</p>
     </div>
   );
-};
-
-const Count = ({ count }) => {
-  return <div>{count}</div>;
-};
-
-const Button = ({ clickHandler }) => {
-  return <button onClick={clickHandler}>Add 1</button>;
 };
 
 export default Counter;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const Hobby = ({ hobby }) => {
-  return <li>{hobby}</li>;
+const Hobby = (props) => {
+  return <li className="hobby">{props.hobby}</li>;
 };
 
 export default Hobby;

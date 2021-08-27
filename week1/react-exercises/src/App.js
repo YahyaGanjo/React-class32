@@ -1,10 +1,10 @@
 import "./App.css";
-import HobbyList from "./components/hobbyList";
-import Guarantee from "./components/guarantee";
+import HobbyList from "./components/HobbyList";
+import Guarantee from "./components/Guarantee";
 import freeShipping from "./f-delivery.png";
 import chat from "./chat.png";
 import coin from "./coin.png";
-import Counter from "./components/counter";
+import Counter from "./components/Counter";
 
 function App() {
   const Lorem =
