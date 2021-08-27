@@ -8,6 +8,7 @@
 }
 .description {
   color: gray;
+  font-size: 12px;
 }
 button:hover {
   background-color: #1d241d;

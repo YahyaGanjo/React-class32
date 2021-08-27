@@ -11,6 +11,7 @@ function App() {
     "Quis commodo sint enim labore enim labore magna. Sit et dolore ipsum ea deserunt et nisi excepteur. Magna ex consequat esse est minim culpa. Culpa culpa fugiat consectetur laboris eiusmod consectetur cupidatat officia exercitation mollit. Excepteur id minim culpa sint cillum.";
   return (
     <div className="App">
+      <h1>Homework</h1>
       <HobbyList />
       <div className="container">
         <Guarantee
