@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "./Button";
 import { FriendProfile } from "./FriendProfile";
+import "./style.css";
 
 export const Friend = () => {
   const [friend, setFriend] = useState({});
