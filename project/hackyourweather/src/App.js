@@ -1,27 +1,30 @@
+import React, { useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
-import cities from "./city-weather.json";
+import { Form } from "./components/Form";
 
 function App() {
+  const [city, setCity] = useState({});
+
+  const displayCity = async (userCity) => {
+    try {
+      const response = await fetch(
+        `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+      );
+      const requestedCity = await response.json();
+      setCity(requestedCity);
+    } catch (error) {
+      console.log(error);
+      setCity({ message: "Server Error" });
+    }
+  };
+
   return (
     <div className="App">
       <h1>Weather</h1>
+      <Form displayCity={displayCity} />
       <div className="container">
-        {cities.map((city) => {
-          return (
-            <Card
-              key={city.id}
-              name={city.name}
-              country={city.sys.country}
-              weatherMain={city.weather[0].main}
-              description={city.weather[0].description}
-              minTemp={city.main.temp_min}
-              maxTemp={city.main.temp_max}
-              lon={city.coord.lon}
-              lat={city.coord.lat}
-            />
-          );
-        })}
+        <Card city={city} />
       </div>
     </div>
   );
