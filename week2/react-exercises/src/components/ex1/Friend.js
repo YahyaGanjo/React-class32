@@ -6,9 +6,13 @@ import "./style.css";
 export const Friend = () => {
   const [friend, setFriend] = useState({});
   const getFriend = async () => {
-    const response = await fetch("https://www.randomuser.me/api?results=1");
-    const data = await response.json();
-    setFriend(data.results[0]);
+    try {
+      const response = await fetch("https://www.randomuser.me/api?results=1");
+      const data = await response.json();
+      setFriend(data.results[0]);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="friend">

@@ -6,9 +6,13 @@ export const DogGallery = () => {
   const [dogPhotos, setDogPhotos] = useState([]);
 
   const getDogPhoto = async () => {
-    const response = await fetch("https://dog.ceo/api/breeds/image/random");
-    const photo = await response.json();
-    setDogPhotos((prevGallery) => [...prevGallery, photo]);
+    try {
+      const response = await fetch("https://dog.ceo/api/breeds/image/random");
+      const photo = await response.json();
+      setDogPhotos((prevGallery) => [...prevGallery, photo]);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div style={{ textAlign: "center", margin: "70px 0px" }}>
