@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
-import Card from "./components/Card";
+import SearchedCities from "./components/SearchedCities";
 import { Form } from "./components/Form";
 
 function App() {
-  const [city, setCity] = useState({});
+  const [searchedCities, setSearchedCities] = useState([]);
+  const [isFound, setIsFound] = useState(true);
 
   const fetchCity = async (userCity) => {
     try {
@@ -12,11 +13,23 @@ function App() {
         `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
       );
       const requestedCity = await response.json();
-      setCity(requestedCity);
+      if (requestedCity.message) {
+        setIsFound(false);
+      } else {
+        const citiesToRender = searchedCities.filter(
+          (item) => item.id !== requestedCity.id
+        );
+        setSearchedCities([requestedCity, ...citiesToRender]);
+        setIsFound(true);
+      }
     } catch (error) {
+      setIsFound(false);
       console.log(error);
-      setCity({ message: "Server Error" });
     }
+  };
+  const removeCityHandler = (id) => {
+    const newArray = searchedCities.filter((item) => item.id !== id);
+    setSearchedCities(newArray);
   };
 
   return (
@@ -24,7 +37,14 @@ function App() {
       <h1>Weather</h1>
       <Form onSubmitForm={fetchCity} />
       <div className="container">
-        <Card city={city} />
+        {isFound ? (
+          <SearchedCities
+            onRemove={removeCityHandler}
+            cities={searchedCities}
+          />
+        ) : (
+          <h2>Not Found</h2>
+        )}
       </div>
     </div>
   );

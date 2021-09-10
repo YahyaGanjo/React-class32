@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const Form = (props) => {
   const [userCity, setUserCity] = useState("");
+  const [buttonIsSHown, setButtonIsShown] = useState(false);
+  useEffect(() => {
+    /[a-zA-Z]/.test(userCity)
+      ? setButtonIsShown(true)
+      : setButtonIsShown(false);
+  }, [userCity]);
   const submitHandler = (e) => {
     e.preventDefault();
     props.onSubmitForm(userCity);
     setUserCity("");
+    setButtonIsShown(false);
   };
+
   return (
-    <form onSubmit={submitHandler}>
+    <form
+      onSubmit={submitHandler}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") e.preventDefault();
+      }}
+    >
       <div className="pseudo-search">
         <input
           autoFocus="required"
@@ -18,11 +31,12 @@ export const Form = (props) => {
           placeholder={"Search city"}
         />
         <i className="fa fa-globe places"></i>
-        <button className="fa fa-search"></button>
       </div>
-      <button className="submit" type="submit">
-        submit
-      </button>
+      {buttonIsSHown && (
+        <button className="submit" type="submit">
+          submit
+        </button>
+      )}
     </form>
   );
 };
