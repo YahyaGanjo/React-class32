@@ -6,7 +6,7 @@ import { Form } from "./components/Form";
 function App() {
   const [city, setCity] = useState({});
 
-  const displayCity = async (userCity) => {
+  const fetchCity = async (userCity) => {
     try {
       const response = await fetch(
         `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <h1>Weather</h1>
-      <Form displayCity={displayCity} />
+      <Form onSubmitForm={fetchCity} />
       <div className="container">
         <Card city={city} />
       </div>

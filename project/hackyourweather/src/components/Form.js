@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 export const Form = (props) => {
-  const [city, setCity] = useState("");
+  const [userCity, setUserCity] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
-    props.displayCity(city);
-    setCity("");
+    props.onSubmitForm(userCity);
+    setUserCity("");
   };
   return (
     <form onSubmit={submitHandler}>
@@ -13,8 +13,8 @@ export const Form = (props) => {
         <input
           autoFocus="required"
           type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
+          value={userCity}
+          onChange={(e) => setUserCity(e.target.value)}
           placeholder={"Search city"}
         />
         <i className="fa fa-globe places"></i>

@@ -1,30 +1,31 @@
-import React from "react";
+import { Fragment } from "react";
 
 const Card = ({ city }) => {
-  return (
-    <div>
-      {Object.keys(city).length === 0 && <h4>Type a city name and submit!</h4>}
-      {city.message && (
-        <div className="card">
-          <h3>{city.message}</h3>
-        </div>
-      )}
-      {city.id && (
-        <div className="card">
-          <h4>
-            {city.name}, {city.sys.country}
-          </h4>
-          <h6>{city.weather[0].main}</h6>
-          <p>{city.weather[0].description}</p>
-          <p>min temp : {city.main.temp_min}</p>
-          <p>max temp : {city.main.temp_max}</p>
-          <p>
-            location : {city.coord.lon}, {city.coord.lat}
-          </p>
-        </div>
-      )}
-    </div>
-  );
+  if (Object.keys(city).length === 0) {
+    return <h4>Type a city name and submit!</h4>;
+  }
+
+  let content;
+
+  if (city.message) {
+    content = <h4>{city.message}</h4>;
+  } else {
+    content = (
+      <Fragment>
+        <h4>
+          {city.name}, {city.sys.country}
+        </h4>
+        <h3>{city.weather[0].main}</h3>
+        <p>{city.weather[0].description}</p>
+        <p>min temp : {(city.main.temp_min - 273.15).toFixed()} °C</p>
+        <p>max temp : {(city.main.temp_max - 273.15).toFixed()} °C</p>
+        <p>
+          location : {city.coord.lon}, {city.coord.lat}
+        </p>
+      </Fragment>
+    );
+  }
+  return <div className="card">{content}</div>;
 };
 
 export default Card;
