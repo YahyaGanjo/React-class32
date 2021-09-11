@@ -1,3 +1,4 @@
+import React from "react";
 import City from "./City";
 
 const SearchedCities = (props) => {

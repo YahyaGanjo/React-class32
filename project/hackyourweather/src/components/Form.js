@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export const Form = (props) => {
+const Form = (props) => {
   const [userCity, setUserCity] = useState("");
   const [buttonIsSHown, setButtonIsShown] = useState(false);
   useEffect(() => {
@@ -12,14 +12,13 @@ export const Form = (props) => {
     e.preventDefault();
     props.onSubmitForm(userCity);
     setUserCity("");
-    setButtonIsShown(false);
   };
 
   return (
     <form
       onSubmit={submitHandler}
       onKeyDown={(e) => {
-        if (e.key === "Enter") e.preventDefault();
+        if (e.key === "Enter" && userCity.length === 0) e.preventDefault();
       }}
     >
       <div className="pseudo-search">
@@ -40,3 +39,5 @@ export const Form = (props) => {
     </form>
   );
 };
+
+export default Form;

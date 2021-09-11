@@ -1,11 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const City = ({ onRemove, city }) => {
   return (
-    <li>
-      <h4>
-        {city.name}, {city.sys.country}
-      </h4>
+    <li className="card">
+      <Link to={`/${city.id}`}>
+        <h4>
+          {city.name}, {city.sys.country}
+        </h4>
+      </Link>
       <button onClick={() => onRemove(city.id)}>X</button>
       <h3>{city.weather[0].main}</h3>
       <p>{city.weather[0].description}</p>
