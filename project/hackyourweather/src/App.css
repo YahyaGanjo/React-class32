@@ -13,6 +13,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 40px auto;
+  width: 60%;
 }
 .card {
   list-style: none;

@@ -5,26 +5,25 @@ import "../App.css";
 
 const Home = () => {
   const [searchedCities, setSearchedCities] = useState([]);
-  const [cityIsFound, setCityIsFound] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchCity = async (userCity) => {
+    setError(null);
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+        `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=cfgvv`
       );
       const requestedCity = await response.json();
       if (requestedCity.message) {
-        setCityIsFound(false);
+        setError(requestedCity.message);
       } else {
         const citiesToRender = searchedCities.filter(
           (item) => item.id !== requestedCity.id
         );
         setSearchedCities([requestedCity, ...citiesToRender]);
-        setCityIsFound(true);
       }
-    } catch (error) {
-      setCityIsFound(false);
-      console.log(error);
+    } catch (err) {
+      setError(err.message);
     }
   };
   const removeCityHandler = (id) => {
@@ -35,13 +34,13 @@ const Home = () => {
     <React.Fragment>
       <Form onSubmitForm={fetchCity} />
       <div className="container">
-        {cityIsFound ? (
+        {error === null ? (
           <SearchedCities
             onRemove={removeCityHandler}
             cities={searchedCities}
           />
         ) : (
-          <h2>Not Found</h2>
+          <h2>{error}</h2>
         )}
       </div>
     </React.Fragment>
