@@ -13,13 +13,13 @@ const CityChart = () => {
   const [city, SetCity] = useState({});
   const [cityIsFound, setCityIsFound] = useState(true);
 
-  const params = useParams().cityId;
+  const params = useParams();
   const history = useHistory();
 
   const fetchCity = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?id=${params}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+        `http://api.openweathermap.org/data/2.5/forecast?id=${params.cityId}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
       );
       const requestedCity = await response.json();
       requestedCity.message ? setCityIsFound(false) : setCityIsFound(true);
@@ -36,7 +36,7 @@ const CityChart = () => {
       setCityIsFound(false);
       console.log(error);
     }
-  }, [params]);
+  }, [params.cityId]);
 
   useEffect(() => {
     fetchCity();
