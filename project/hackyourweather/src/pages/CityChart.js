@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import {
   XAxis,
@@ -16,31 +16,29 @@ const CityChart = () => {
   const params = useParams();
   const history = useHistory();
 
-  const fetchCity = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?id=${params.cityId}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
-      );
-      const requestedCity = await response.json();
-      requestedCity.message ? setCityIsFound(false) : setCityIsFound(true);
-      const cityName = `${requestedCity.city.name}, ${requestedCity.city.country}`;
-      const chartData = requestedCity.list.map(
-        (item) =>
-          (item = {
-            date: item.dt_txt.split(" ")[0],
-            temp: (item.main.temp - 273.15).toFixed(),
-          })
-      );
-      SetCity({ name: cityName, data: chartData });
-    } catch (error) {
-      setCityIsFound(false);
-      console.log(error);
-    }
-  }, [params.cityId]);
-
   useEffect(() => {
-    fetchCity();
-  }, [fetchCity]);
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `http://api.openweathermap.org/data/2.5/forecast?id=${params.cityId}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+        );
+        const requestedCity = await response.json();
+        requestedCity.message ? setCityIsFound(false) : setCityIsFound(true);
+        const cityName = `${requestedCity.city.name}, ${requestedCity.city.country}`;
+        const chartData = requestedCity.list.map(
+          (item) =>
+            (item = {
+              date: item.dt_txt.split(" ")[0],
+              temp: (item.main.temp - 273.15).toFixed(),
+            })
+        );
+        SetCity({ name: cityName, data: chartData });
+      } catch (error) {
+        setCityIsFound(false);
+      }
+    }
+    fetchData();
+  }, [params.cityId]);
 
   return (
     <div className="rechart-container">
